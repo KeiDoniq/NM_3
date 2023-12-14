@@ -354,8 +354,11 @@ void Matrix::Solve()
 	calc_r();
 	out << "K = " << k << '\n';
 	out << "Lambda diff: " << get_l_accur() << '\n';
+	out << "Lambda calculated: " << lambda << '\n';
 	out << "X diff: " << get_x_accur() << '\n';
+	out << "X calculated: " << ToString_X() << '\n';
 	out << "r: " << get_r() << '\n';
+
 	
 }
 
@@ -379,7 +382,7 @@ uint Matrix::get_k() const
 	return k;
 }
 
-double Matrix::get_x_accur() const
+double Matrix::get_x_accur()
 {
 	double* Hdivided = new double[N], * xdivided = new double[N];
 	double hdiv = 1 / H[0][iMax3], xdiv = 1 / x[0];
@@ -396,6 +399,10 @@ double Matrix::get_x_accur() const
 		if (max < tmp)
 			max = tmp;
 	}
+
+	out << "X calculated norm: " << ToString_vec(xdivided) << '\n';
+	out << "H calculated norm: " << ToString_vec(Hdivided) << '\n';
+
 	delete[] Hdivided;
 	delete[] xdivided;
 	return max;

@@ -51,7 +51,7 @@ public:
 	std::string ToString_X();
 	void Solve();
 	double get_r() const;
-	double get_x_accur() const;
+	double get_x_accur();
 	double get_l_accur() const;
 	uint get_k() const;
 	double get_l() const;
