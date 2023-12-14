@@ -97,7 +97,7 @@ std::string Matrix::ToString_matrix(double** matrix, std::string message)
 std::string Matrix::ToString_vec(double* vec, std::string message)
 {
 	std::stringstream str;
-	str << '\n' <<  message << '\n';
+	str <<  message << '\n';
 	for (int i = 0; i < N; ++i)
 		str << std::setw(15) << std::setprecision(25) << vec[i] << '\n';
 	return str.str();
@@ -189,9 +189,9 @@ void Matrix::calculate()
 		}*/
 
 
-		out << "\ndiff nu: " << std::setprecision(25) << get_eps_g() << '\n';
-		out << "diff sigma: " << std::setprecision(25) << abs(curr_sigma-prev_sigma) 
-			<< '\n' << '\n' << '\n';
+//		out << "\ndiff nu: " << std::setprecision(25) << get_eps_g() << '\n';
+//		out << "diff sigma: " << std::setprecision(25) << abs(curr_sigma-prev_sigma) 
+//			<< '\n' << '\n' << '\n';
 	} while (k <= K_max && (get_eps_g() >= eps_g || get_eps_l() >= eps_l));
 
 	lambda = curr_sigma;
@@ -325,7 +325,7 @@ Matrix::Matrix(uint N, uint K, int lambda_range, double epsilon): K_max(K), N(N)
 {
 	mem_alloc();
 	gen_vector(lambda_accur, lambda_range);
-	out << "Generated lambdas:\n" << ToString_lambdas_accur() << '\n';
+	out << "Generated lambdas\n" << ToString_lambdas_accur() << '\n';
 	calc_H();
 	out << "Calculated H:\n" << ToString_H() << '\n';
 	calc_A();
@@ -351,10 +351,12 @@ void Matrix::Solve()
 	findMax();
 	calculateNextA();
 	calculate();
-	//std::cout << "\nK = " << k << '\n';
-	//std::cout << "Lambda diff: " <<  << '\n';
-
 	calc_r();
+	out << "K = " << k << '\n';
+	out << "Lambda diff: " << get_l_accur() << '\n';
+	out << "X diff: " << get_x_accur() << '\n';
+	out << "r: " << get_r() << '\n';
+	
 }
 
 double Matrix::get_r() const
